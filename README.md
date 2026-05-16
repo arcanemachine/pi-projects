@@ -10,7 +10,7 @@ Packages live in `packages/` and are independently usable and versioned.
 
 - `packages/pi-notify-marker`
 - `packages/pi-read`
-- `packages/pi-refresh`
+- `packages/pi-retry-response`
 - `packages/pi-subagent`
 - `packages/pi-tool-guardrails`
 - `packages/pi-web-search`

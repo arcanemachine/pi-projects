@@ -13,6 +13,6 @@
 [submodule "packages/pi-web-search"]
 	path = packages/pi-web-search
 	url = git@github.com:arcanemachine/pi-web-search.git
-[submodule "packages/pi-refresh"]
-	path = packages/pi-refresh
-	url = git@github.com:arcanemachine/pi-refresh.git
+[submodule "packages/pi-retry-response"]
+	path = packages/pi-retry-response
+	url = git@github.com:arcanemachine/pi-retry-response.git
