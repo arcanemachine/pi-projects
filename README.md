@@ -16,7 +16,21 @@ Packages live in `packages/` and are independently installable/publishable.
 
 ## Development
 
-This repo uses pnpm workspaces.
+This repo uses Git submodules under `packages/`.
+
+Clone with submodules:
+
+```bash
+git clone --recurse-submodules git@github.com:arcanemachine/pi-projects.git
+```
+
+If already cloned:
+
+```bash
+git submodule update --init --recursive
+```
+
+Workspace commands:
 
 ```bash
 pnpm install
