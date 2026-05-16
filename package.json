@@ -1,0 +1,31 @@
+{
+  "name": "pi-projects",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@10.33.4",
+  "workspaces": ["packages/*"],
+  "pi": {
+    "extensions": [
+      "./packages/pi-inter-agent/src/index.ts",
+      "./packages/pi-notify-marker/src/index.ts",
+      "./packages/pi-read/src/index.ts",
+      "./packages/pi-refresh/src/index.ts",
+      "./packages/pi-subagent/src/index.ts",
+      "./packages/pi-tool-guardrails/src/index.ts",
+      "./packages/pi-web-search/index.ts"
+    ]
+  },
+  "scripts": {
+    "build": "pnpm -r run build",
+    "typecheck": "pnpm -r run typecheck",
+    "test": "pnpm -r run test",
+    "format": "prettier --write \"packages/*/src/**/*.ts\" \"packages/*/*.md\""
+  },
+  "devDependencies": {
+    "@earendil-works/pi-coding-agent": "^0.74.0",
+    "@types/node": "^25.3.3",
+    "prettier": "^3.8.3",
+    "typescript": "^5.9.3"
+  }
+}

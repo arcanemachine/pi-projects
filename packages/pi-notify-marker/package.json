@@ -1,0 +1,49 @@
+{
+  "name": "@arcanemachine/pi-notify-marker",
+  "version": "0.2.0",
+  "description": "Marker file plugin for Pi coding agent - create files when events occur",
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc --watch"
+  },
+  "files": [
+    "src",
+    "README.md",
+    "LICENSE.md",
+    "watch-and-notify.sh"
+  ],
+  "keywords": [
+    "pi",
+    "pi-coding-agent",
+    "extension",
+    "notifications",
+    "markers",
+    "pi-package"
+  ],
+  "pi": {
+    "extensions": [
+      "./src/index.ts"
+    ],
+    "image": "https://raw.githubusercontent.com/arcanemachine/pi-notify-marker/main/logo.jpg"
+  },
+  "author": "Nicholas Moen",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/arcanemachine/pi-notify-marker"
+  },
+  "homepage": "https://github.com/arcanemachine/pi-notify-marker",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^25.3.0",
+    "typescript": "^5.7.2"
+  },
+  "peerDependencies": {
+    "@earendil-works/pi-coding-agent": "*"
+  },
+  "peerDependenciesMeta": {
+    "@earendil-works/pi-coding-agent": {
+      "optional": true
+    }
+  }
+}

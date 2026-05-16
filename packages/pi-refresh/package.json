@@ -1,0 +1,46 @@
+{
+  "name": "@arcanemachine/pi-refresh",
+  "version": "0.1.0",
+  "description": "Pi extension to retry the latest prompt with a shortcut (default Ctrl+R)",
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "typecheck": "tsc --noEmit"
+  },
+  "keywords": [
+    "pi",
+    "pi-coding-agent",
+    "extension",
+    "retry",
+    "refresh"
+  ],
+  "pi": {
+    "extensions": [
+      "./src/index.ts"
+    ]
+  },
+  "license": "MIT",
+  "peerDependencies": {
+    "@earendil-works/pi-coding-agent": "*",
+    "@earendil-works/pi-tui": "*"
+  },
+  "peerDependenciesMeta": {
+    "@earendil-works/pi-coding-agent": {
+      "optional": true
+    },
+    "@earendil-works/pi-tui": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@earendil-works/pi-coding-agent": "^0.74.0",
+    "@earendil-works/pi-tui": "^0.74.0",
+    "@types/node": "^25.3.0",
+    "typescript": "^5.7.2"
+  },
+  "files": [
+    "src",
+    "README.md",
+    "LICENSE.md"
+  ]
+}
