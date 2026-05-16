@@ -2,6 +2,11 @@
   "name": "pi-projects",
   "version": "0.0.0",
   "private": true,
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/arcanemachine/pi-projects"
+  },
   "type": "module",
   "packageManager": "pnpm@10.33.4",
   "workspaces": ["packages/*"],

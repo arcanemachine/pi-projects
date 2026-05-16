@@ -27,4 +27,9 @@ pnpm run test
 
 ## Pi
 
-For local development, the repo root can be installed as a Pi package to load all extensions. Individual packages can also be installed from their package directories.
+The repo root declares a Pi package manifest that loads all extensions. Individual packages can also be installed from their package directories.
+
+```bash
+pi install /path/to/pi-projects
+pi install /path/to/pi-projects/packages/pi-read
+```
