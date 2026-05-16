@@ -22,8 +22,9 @@ This is the root agent file for the `pi-projects` superproject.
 
 - Do not convert submodules into normal directories.
 - Do not add monorepo/superproject implementation detail into child package docs unless requested.
-- Runtime dependencies used by child package code must be declared in that child package.
+- Runtime and dev dependencies used by a child package must be declared in that child package.
 - Use pnpm from the repo root for workspace validation.
+- When adding package-specific dependencies from the superproject, use `pnpm --filter <package-name> add [-D] <dependency>` from the repo root. This updates the child package manifest and the root lockfile while keeping the child package standalone.
 - Do not push unless explicitly asked.
 - The user probably knows what they work on. Don't brainstorm new extension ideas for them, unless prompted to do so.
 
