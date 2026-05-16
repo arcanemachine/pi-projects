@@ -12,7 +12,6 @@
   "workspaces": ["packages/*"],
   "pi": {
     "extensions": [
-      "./packages/pi-inter-agent/src/index.ts",
       "./packages/pi-notify-marker/src/index.ts",
       "./packages/pi-read/src/index.ts",
       "./packages/pi-refresh/src/index.ts",

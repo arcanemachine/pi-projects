@@ -1,6 +1,3 @@
-[submodule "packages/pi-inter-agent"]
-	path = packages/pi-inter-agent
-	url = git@github.com:arcanemachine/pi-inter-agent.git
 [submodule "packages/pi-notify-marker"]
 	path = packages/pi-notify-marker
 	url = git@github.com:arcanemachine/pi-notify-marker.git

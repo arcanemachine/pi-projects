@@ -8,7 +8,6 @@ Superproject for arcanemachine's Pi extension packages.
 
 Packages live in `packages/` and are independently usable and versioned.
 
-- `packages/pi-inter-agent`
 - `packages/pi-notify-marker`
 - `packages/pi-read`
 - `packages/pi-refresh`
