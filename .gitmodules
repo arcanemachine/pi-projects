@@ -1,21 +1,21 @@
 [submodule "packages/pi-inter-agent"]
 	path = packages/pi-inter-agent
-	url = https://github.com/arcanemachine/pi-inter-agent
+	url = git@github.com:arcanemachine/pi-inter-agent.git
 [submodule "packages/pi-notify-marker"]
 	path = packages/pi-notify-marker
-	url = https://github.com/arcanemachine/pi-notify-marker
+	url = git@github.com:arcanemachine/pi-notify-marker.git
 [submodule "packages/pi-read"]
 	path = packages/pi-read
-	url = https://github.com/arcanemachine/pi-read
+	url = git@github.com:arcanemachine/pi-read.git
 [submodule "packages/pi-subagent"]
 	path = packages/pi-subagent
-	url = https://github.com/arcanemachine/pi-subagent
+	url = git@github.com:arcanemachine/pi-subagent.git
 [submodule "packages/pi-tool-guardrails"]
 	path = packages/pi-tool-guardrails
-	url = https://github.com/arcanemachine/pi-tool-guardrails
+	url = git@github.com:arcanemachine/pi-tool-guardrails.git
 [submodule "packages/pi-web-search"]
 	path = packages/pi-web-search
-	url = https://github.com/arcanemachine/pi-web-search
+	url = git@github.com:arcanemachine/pi-web-search.git
 [submodule "packages/pi-refresh"]
 	path = packages/pi-refresh
-	url = https://github.com/arcanemachine/pi-refresh
+	url = git@github.com:arcanemachine/pi-refresh.git
