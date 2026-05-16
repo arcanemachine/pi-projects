@@ -1,0 +1,18 @@
+[submodule "packages/pi-inter-agent"]
+	path = packages/pi-inter-agent
+	url = https://github.com/arcanemachine/pi-inter-agent
+[submodule "packages/pi-notify-marker"]
+	path = packages/pi-notify-marker
+	url = https://github.com/arcanemachine/pi-notify-marker
+[submodule "packages/pi-read"]
+	path = packages/pi-read
+	url = https://github.com/arcanemachine/pi-read
+[submodule "packages/pi-subagent"]
+	path = packages/pi-subagent
+	url = https://github.com/arcanemachine/pi-subagent
+[submodule "packages/pi-tool-guardrails"]
+	path = packages/pi-tool-guardrails
+	url = https://github.com/arcanemachine/pi-tool-guardrails
+[submodule "packages/pi-web-search"]
+	path = packages/pi-web-search
+	url = https://github.com/arcanemachine/pi-web-search
