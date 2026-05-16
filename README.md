@@ -4,7 +4,7 @@ Monorepo for arcanemachine's Pi extension packages.
 
 ## Packages
 
-Packages live in `packages/` and are independently installable/publishable.
+Packages live in `packages/` and are independently usable and versioned.
 
 - `packages/pi-inter-agent`
 - `packages/pi-notify-marker`
