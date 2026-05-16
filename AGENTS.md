@@ -25,6 +25,7 @@ This is the root agent file for the `pi-projects` superproject.
 - Runtime dependencies used by child package code must be declared in that child package.
 - Use pnpm from the repo root for workspace validation.
 - Do not push unless explicitly asked.
+- The user probably knows what they work on. Don't brainstorm new extension ideas for them, unless prompted to do so.
 
 ## Commit order (critical)
 

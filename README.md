@@ -1,5 +1,7 @@
 # pi-projects
 
+> Agent note: read `AGENTS.md` first. This is a superproject with Git submodules in `packages/` (not a single-repo monorepo).
+
 Superproject for arcanemachine's Pi extension packages.
 
 ## Packages
