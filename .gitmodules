@@ -16,3 +16,6 @@
 [submodule "packages/pi-web-search"]
 	path = packages/pi-web-search
 	url = https://github.com/arcanemachine/pi-web-search
+[submodule "packages/pi-refresh"]
+	path = packages/pi-refresh
+	url = https://github.com/arcanemachine/pi-refresh
