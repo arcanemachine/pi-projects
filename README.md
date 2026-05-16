@@ -1,6 +1,6 @@
 # pi-projects
 
-Monorepo for arcanemachine's Pi extension packages.
+Superproject for arcanemachine's Pi extension packages.
 
 ## Packages
 
