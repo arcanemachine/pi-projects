@@ -2,18 +2,18 @@
 
 > Agent note: read `AGENTS.md` first. This is a superproject with Git submodules in `packages/` (not a single-repo monorepo).
 
-Superproject for arcanemachine's Pi extension packages.
+Superproject for arcanemachine's custom Pi extension packages.
 
 ## Packages
 
 Packages live in `packages/` and are independently usable and versioned.
 
-- `packages/pi-notify-marker`
-- `packages/pi-read`
-- `packages/pi-retry-response`
-- `packages/pi-subagent`
-- `packages/pi-tool-guardrails`
-- `packages/pi-web-search`
+- [pi-notify-marker](https://github.com/arcanemachine/pi-notify-marker)
+- [pi-read](https://github.com/arcanemachine/pi-read)
+- [pi-retry-response](https://github.com/arcanemachine/pi-retry-response)
+- [pi-subagent](https://github.com/arcanemachine/pi-subagent)
+- [pi-tool-guardrails](https://github.com/arcanemachine/pi-tool-guardrails)
+- [pi-web-search](https://github.com/arcanemachine/pi-web-search)
 
 ## Development
 
