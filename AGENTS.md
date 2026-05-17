@@ -25,6 +25,7 @@ This is the root agent file for the `pi-projects` superproject.
 - Runtime and dev dependencies used by a child package must be declared in that child package.
 - Use pnpm from the repo root for workspace validation.
 - When adding package-specific dependencies from the superproject, use `pnpm --filter <package-name> add [-D] <dependency>` from the repo root. This updates the child package manifest and the root lockfile while keeping the child package standalone.
+- Follow commit instructions from the most specific applicable agent file (for example `packages/<name>/AGENTS.md`). When work is complete, make the required commit(s) before reporting completion.
 - Do not push unless explicitly asked.
 - The user probably knows what they work on. Don't brainstorm new extension ideas for them, unless prompted to do so.
 
