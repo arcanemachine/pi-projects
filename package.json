@@ -14,7 +14,7 @@
     "extensions": [
       "./packages/pi-notify-marker/src/index.ts",
       "./packages/pi-read/src/index.ts",
-      "./packages/pi-retry-response/src/index.ts",
+      "./packages/pi-retry/src/index.ts",
       "./packages/pi-subagent/src/index.ts",
       "./packages/pi-tool-guardrails/src/index.ts",
       "./packages/pi-web-search/index.ts"
