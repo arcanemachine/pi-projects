@@ -11,6 +11,7 @@ Packages live in `packages/` and are independently usable and versioned.
 - [pi-notify-marker](https://github.com/arcanemachine/pi-notify-marker)
 - [pi-read](https://github.com/arcanemachine/pi-read)
 - [pi-retry](https://github.com/arcanemachine/pi-retry)
+- [pi-role](https://github.com/arcanemachine/pi-role)
 - [pi-subagent](https://github.com/arcanemachine/pi-subagent)
 - [pi-web-search](https://github.com/arcanemachine/pi-web-search)
 
