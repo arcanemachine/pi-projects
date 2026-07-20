@@ -22,3 +22,6 @@
 [submodule "packages/pi-supercompact"]
 	path = packages/pi-supercompact
 	url = git@github.com:arcanemachine/pi-supercompact.git
+[submodule "packages/pi-workflow"]
+	path = packages/pi-workflow
+	url = git@github.com:arcanemachine/pi-workflow.git
