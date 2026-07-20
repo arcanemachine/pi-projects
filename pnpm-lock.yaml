@@ -140,6 +140,10 @@ importers:
         version: 5.9.3
 
   packages/pi-supercompact:
+    dependencies:
+      typebox:
+        specifier: 1.1.38
+        version: 1.1.38
     devDependencies:
       '@earendil-works/pi-coding-agent':
         specifier: 0.80.10
