@@ -19,3 +19,6 @@
 [submodule "packages/pi-role"]
 	path = packages/pi-role
 	url = git@github.com:arcanemachine/pi-role.git
+[submodule "packages/pi-supercompact"]
+	path = packages/pi-supercompact
+	url = git@github.com:arcanemachine/pi-supercompact.git

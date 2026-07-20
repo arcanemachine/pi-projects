@@ -17,6 +17,7 @@
       "./packages/pi-retry/src/index.ts",
       "./packages/pi-role/src/index.ts",
       "./packages/pi-subagent/src/index.ts",
+      "./packages/pi-supercompact/src/index.ts",
       "./packages/pi-tool-guardrails/src/index.ts",
       "./packages/pi-web-search/index.ts"
     ]
