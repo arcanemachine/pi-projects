@@ -7,9 +7,6 @@
 [submodule "packages/pi-subagent"]
 	path = packages/pi-subagent
 	url = git@github.com:arcanemachine/pi-subagent.git
-[submodule "packages/pi-tool-guardrails"]
-	path = packages/pi-tool-guardrails
-	url = git@github.com:arcanemachine/pi-tool-guardrails.git
 [submodule "packages/pi-web-search"]
 	path = packages/pi-web-search
 	url = git@github.com:arcanemachine/pi-web-search.git

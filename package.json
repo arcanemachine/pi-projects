@@ -9,7 +9,9 @@
   },
   "type": "module",
   "packageManager": "pnpm@10.33.4",
-  "workspaces": ["packages/*"],
+  "workspaces": [
+    "packages/*"
+  ],
   "pi": {
     "extensions": [
       "./packages/pi-notify-marker/src/index.ts",
@@ -18,7 +20,6 @@
       "./packages/pi-role/src/index.ts",
       "./packages/pi-subagent/src/index.ts",
       "./packages/pi-supercompact/src/index.ts",
-      "./packages/pi-tool-guardrails/src/index.ts",
       "./packages/pi-web-search/index.ts",
       "./packages/pi-workflow/src/index.ts"
     ]

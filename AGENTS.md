@@ -32,12 +32,14 @@ This is the root agent file for the `pi-projects` superproject.
 ## Commit order (critical)
 
 When a child package changes:
+
 1. Commit in the child package repo first.
 2. Then commit the updated submodule pointer in the superproject.
 
 ## New package workflow
 
 When adding a new extension package:
+
 1. Create/clone it as a Git submodule at `packages/<name>`.
 2. Ensure child package basics are complete (`package.json`, `pi` manifest, entrypoint, deps).
 3. Add the package extension path to root `package.json` → `pi.extensions` for single-install workflow.
@@ -54,3 +56,14 @@ pnpm run build
 pnpm run typecheck
 pnpm run test
 ```
+
+## Test-runner capture quirk
+
+Vitest invocations intermittently return completely empty captured output (no `Test Files` line, no `END`) despite exiting `0` with passing tests — a harness/pipe capture artifact, not a test failure. Run a single package's tests with file redirection and a sentinel so an empty capture is obvious, and kill the vitest process pattern with a bracketed class so `pkill` cannot match its own shell:
+
+```bash
+cd /workspace/projects/pi/packages/<pkg> && pkill -9 -f '[v]itest' || true; sleep 1
+echo BEFORE; node node_modules/vitest/vitest.mjs run --reporter=default > /tmp/v.log 2>&1; echo "rc=$?"; tail -6 /tmp/v.log
+```
+
+Bare `pkill -9 -f vitest` can match the running shell itself; the `[v]itest` class avoids that. Run `pnpm --filter <package-name>` from the superproject root `/workspace/projects/pi`, not from inside the package.
