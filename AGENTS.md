@@ -47,6 +47,13 @@ When adding a new extension package:
 5. Validate from root.
 6. Commit child repo first, then superproject pointer/integration.
 
+## Formatting discipline
+
+The root formatter (`pnpm run format`) rewrites every package (`packages/*/src/**` and `packages/*/*.md`). It is a destructive, superproject-wide operation.
+
+- For work limited to one package, do **not** run the root formatter. It would rewrite unrelated sibling packages and mix their changes into your task. Use that package's own non-mutating `npm run format:check`, or format only the paths you changed inside that package, for example `npx prettier --write packages/<pkg>/src/ui/flow.ts`.
+- Treat superproject-wide formatting as a separate, explicitly approved maintenance task: keep it in a standalone commit without behavioral changes, verify it is formatting-only by inspecting the full diff, using `git diff --ignore-all-space` only as a noise-reduction aid (not proof — line wrapping and import reflow still appear in it), reviewing remaining changes manually, running `git diff --check`, and running typecheck and tests.
+
 ## Common commands
 
 ```bash
