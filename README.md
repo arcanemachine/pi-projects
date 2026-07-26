@@ -8,6 +8,7 @@ Superproject for arcanemachine's custom Pi extension packages.
 
 Packages live in `packages/` and are independently usable and versioned.
 
+- [pi-advice](https://github.com/arcanemachine/pi-advice)
 - [pi-notify-marker](https://github.com/arcanemachine/pi-notify-marker)
 - [pi-read](https://github.com/arcanemachine/pi-read)
 - [pi-retry](https://github.com/arcanemachine/pi-retry)

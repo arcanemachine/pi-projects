@@ -14,6 +14,7 @@
   ],
   "pi": {
     "extensions": [
+      "./packages/pi-advice/src/index.ts",
       "./packages/pi-notify-marker/src/index.ts",
       "./packages/pi-read/src/index.ts",
       "./packages/pi-retry/src/index.ts",
