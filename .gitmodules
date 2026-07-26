@@ -28,3 +28,6 @@
 [submodule "packages/pi-session-manager"]
 	path = packages/pi-session-manager
 	url = git@github.com:arcanemachine/pi-session-manager.git
+[submodule "packages/pi-advice"]
+	path = packages/pi-advice
+	url = git@github.com:arcanemachine/pi-advice.git
