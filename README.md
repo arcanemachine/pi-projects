@@ -13,6 +13,7 @@ Packages live in `packages/` and are independently usable and versioned.
 - [pi-read](https://github.com/arcanemachine/pi-read)
 - [pi-retry](https://github.com/arcanemachine/pi-retry)
 - [pi-role](https://github.com/arcanemachine/pi-role)
+- [pi-session-manager](https://github.com/arcanemachine/pi-session-manager)
 - [pi-session-snapshot](https://github.com/arcanemachine/pi-session-snapshot)
 - [pi-subagent](https://github.com/arcanemachine/pi-subagent)
 - [pi-supercompact](https://github.com/arcanemachine/pi-supercompact)

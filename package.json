@@ -19,6 +19,7 @@
       "./packages/pi-read/src/index.ts",
       "./packages/pi-retry/src/index.ts",
       "./packages/pi-role/src/index.ts",
+      "./packages/pi-session-manager/src/index.ts",
       "./packages/pi-session-snapshot/src/index.ts",
       "./packages/pi-subagent/src/index.ts",
       "./packages/pi-supercompact/src/index.ts",
@@ -33,7 +34,7 @@
     "format": "prettier --write \"packages/*/src/**/*.ts\" \"packages/*/*.md\""
   },
   "devDependencies": {
-    "@earendil-works/pi-coding-agent": "^0.74.0",
+    "@earendil-works/pi-coding-agent": "0.80.10",
     "@types/node": "^25.3.3",
     "prettier": "^3.8.3",
     "typescript": "^5.9.3"
