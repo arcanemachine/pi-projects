@@ -17,6 +17,7 @@ Packages live in `packages/` and are independently usable and versioned.
 - [pi-session-snapshot](https://github.com/arcanemachine/pi-session-snapshot)
 - [pi-subagent](https://github.com/arcanemachine/pi-subagent)
 - [pi-supercompact](https://github.com/arcanemachine/pi-supercompact)
+- [pi-tree-editor](https://github.com/arcanemachine/pi-tree-editor)
 - [pi-web-search](https://github.com/arcanemachine/pi-web-search)
 - [pi-workflow](https://github.com/arcanemachine/pi-workflow)
 
