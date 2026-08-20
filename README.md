@@ -16,7 +16,7 @@ Packages live in `packages/` and are independently usable and versioned.
 - [pi-session-manager](https://github.com/arcanemachine/pi-session-manager) (unstable, personal; not recommended for shared use) - Use tmux to start a fleet of Pi sessions.
 - [pi-session-snapshot](https://github.com/arcanemachine/pi-session-snapshot) - Save the current conversation as a snapshot to be reused across sessions.
 - [pi-subagent](https://github.com/arcanemachine/pi-subagent) - Yet another subagent extension.
-- [pi-supercompact](https://github.com/arcanemachine/pi-supercompact) - Improved compaction system. Intended to forget less between compactions.
+- [pi-supercompact](https://github.com/arcanemachine/pi-supercompact) - Improved compaction system. Intended to make your agent forget less after compaction.
 - [pi-tree-editor](https://github.com/arcanemachine/pi-tree-editor) - Add, modify, and remove items in the /tree conversation history.
 - [pi-web-search](https://github.com/arcanemachine/pi-web-search) (personal, not recommended for shared use) - Yet another web search extension.
 - [pi-workflow](https://github.com/arcanemachine/pi-workflow) (personal, not recommended for shared use) - Create custom workflows for getting stuff done in different projects. (Basically just project-scoped skills)
