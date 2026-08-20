@@ -12,7 +12,7 @@ Packages live in `packages/` and are independently usable and versioned.
 - [pi-notify-marker](https://github.com/arcanemachine/pi-notify-marker) - When Pi is done working ("settled"), create a file. Used to provide notifications via a file-watcher script when running Pi in a container.
 - [pi-read](https://github.com/arcanemachine/pi-read) - A tweaked Pi Read tool with configurable line/byte limits.
 - [pi-retry](https://github.com/arcanemachine/pi-retry) - Retry stopped, stalled, or slow responses.
-- [pi-role](https://github.com/arcanemachine/pi-role) - Custom roles for your Pi sessions (e.g. architect, worker, etc.).
+- [pi-role](https://github.com/arcanemachine/pi-role) - Create and use custom roles for your Pi sessions (e.g. architect, worker, etc.).
 - [pi-session-manager](https://github.com/arcanemachine/pi-session-manager) (unstable, personal; not recommended for shared use) - Use tmux to start a fleet of Pi sessions.
 - [pi-session-snapshot](https://github.com/arcanemachine/pi-session-snapshot) - Save the current conversation as a snapshot to be reused across sessions.
 - [pi-subagent](https://github.com/arcanemachine/pi-subagent) - Yet another subagent extension.
