@@ -1,5 +1,9 @@
 # pi-projects
 
+<p align="center">
+  <img src="https://raw.githubusercontent.com/arcanemachine/pi-projects/main/logo.jpg" alt="pi-projects logo" width="250" />
+</p>
+
 > Agent note: read `AGENTS.md` first. This is a superproject with Git submodules in `packages/` (not a single-repo monorepo).
 
 Superproject for arcanemachine's custom Pi extension packages.
