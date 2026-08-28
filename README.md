@@ -30,6 +30,7 @@ Packages which should be stable enough for use by others:
 
 Packages which are intended for my own use, or are not yet stable:
 
+- [pi-model-switcher](https://github.com/arcanemachine/pi-model-switcher) (unstable, unreleased) - User-authorized agent-driven model switching for Pi sessions.
 - [pi-session-manager](https://github.com/arcanemachine/pi-session-manager) (unstable, personal) - Use tmux to start a fleet of Pi sessions.
 - [pi-web-search](https://github.com/arcanemachine/pi-web-search) (personal) - Yet another web search extension.
 - [pi-workflow](https://github.com/arcanemachine/pi-workflow) (personal) - Create custom workflows for getting stuff done in different projects. (Basically just project-scoped skills)

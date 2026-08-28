@@ -34,3 +34,6 @@
 [submodule "packages/pi-tree-editor"]
 	path = packages/pi-tree-editor
 	url = git@github.com:arcanemachine/pi-tree-editor.git
+[submodule "packages/pi-model-switcher"]
+	path = packages/pi-model-switcher
+	url = git@github.com:arcanemachine/pi-model-switcher.git

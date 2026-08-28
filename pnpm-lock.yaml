@@ -39,6 +39,31 @@ importers:
         specifier: ^4.1.6
         version: 4.1.6(@opentelemetry/api@1.9.0)(@types/node@25.8.0)(jsdom@26.1.0)(vite@8.0.13(@types/node@25.8.0)(esbuild@0.28.0)(jiti@2.7.0)(tsx@4.23.1)(yaml@2.9.0))
 
+  packages/pi-model-switcher:
+    dependencies:
+      typebox:
+        specifier: 1.3.7
+        version: 1.3.7
+    devDependencies:
+      '@earendil-works/pi-coding-agent':
+        specifier: 0.84.1
+        version: 0.84.1(ws@8.20.1)(zod@4.4.3)
+      '@earendil-works/pi-tui':
+        specifier: 0.84.1
+        version: 0.84.1
+      '@types/node':
+        specifier: ^25.3.3
+        version: 25.8.0
+      prettier:
+        specifier: ^3.8.3
+        version: 3.8.3
+      typescript:
+        specifier: ^5.9.3
+        version: 5.9.3
+      vitest:
+        specifier: ^4.1.6
+        version: 4.1.6(@opentelemetry/api@1.9.0)(@types/node@25.8.0)(jsdom@26.1.0)(vite@8.0.13(@types/node@25.8.0)(esbuild@0.28.0)(jiti@2.7.0)(tsx@4.23.1)(yaml@2.9.0))
+
   packages/pi-notify-marker:
     devDependencies:
       '@earendil-works/pi-coding-agent':
@@ -2385,7 +2410,7 @@ snapshots:
   '@earendil-works/pi-agent-core@0.74.0(ws@8.20.1)(zod@4.4.3)':
     dependencies:
       '@earendil-works/pi-ai': 0.74.0(ws@8.20.1)(zod@4.4.3)
-      typebox: 1.1.38
+      typebox: 1.3.7
     transitivePeerDependencies:
       - '@modelcontextprotocol/sdk'
       - bufferutil
@@ -2449,7 +2474,7 @@ snapshots:
       openai: 6.26.0(ws@8.20.1)(zod@4.4.3)
       partial-json: 0.1.7
       proxy-agent: 6.5.0
-      typebox: 1.1.38
+      typebox: 1.3.7
       undici: 7.25.0
       zod-to-json-schema: 3.25.2(zod@4.4.3)
     transitivePeerDependencies:
@@ -2547,7 +2572,7 @@ snapshots:
       minimatch: 10.2.5
       proper-lockfile: 4.1.2
       strip-ansi: 7.2.0
-      typebox: 1.1.38
+      typebox: 1.3.7
       undici: 7.25.0
       uuid: 14.0.0
       yaml: 2.9.0

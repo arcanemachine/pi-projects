@@ -25,7 +25,8 @@
       "./packages/pi-subagent/src/index.ts",
       "./packages/pi-supercompact/src/index.ts",
       "./packages/pi-web-search/index.ts",
-      "./packages/pi-workflow/src/index.ts"
+      "./packages/pi-workflow/src/index.ts",
+      "./packages/pi-model-switcher/src/index.ts"
     ]
   },
   "scripts": {
