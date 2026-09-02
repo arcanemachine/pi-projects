@@ -26,14 +26,14 @@ Packages which should be stable enough for use by others:
 - [pi-subagent](https://github.com/arcanemachine/pi-subagent) - Yet another subagent extension.
 - [pi-supercompact](https://github.com/arcanemachine/pi-supercompact) - Improved compaction system. Intended to make your agent forget less after compaction.
 - [pi-tree-editor](https://github.com/arcanemachine/pi-tree-editor) - Add, modify, and remove items in the /tree conversation history.
+- [pi-web-search](https://github.com/arcanemachine/pi-web-search) Yet another web search extension. Supports DuckDuckGo (no config required) and Brave (requires API key; can use free tier)
 
 ### Personal/unstable packages
 
 Packages which are intended for my own use, or are not yet stable:
 
 - [pi-session-manager](https://github.com/arcanemachine/pi-session-manager) (unstable, personal) - Use tmux to start a fleet of Pi sessions.
-- [pi-web-search](https://github.com/arcanemachine/pi-web-search) (personal) - Yet another web search extension.
-- [pi-workflow](https://github.com/arcanemachine/pi-workflow) (personal) - Create custom workflows for getting stuff done in different projects. (Basically just project-scoped skills)
+- [pi-workflow](https://github.com/arcanemachine/pi-workflow) (personal) - Create custom workflows for getting stuff done in different projects. (Basically just project-scoped skills that define how to proceed with a given task or set of tasks)
 
 ## Development
 
