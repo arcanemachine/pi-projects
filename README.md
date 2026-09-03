@@ -29,12 +29,12 @@ Packages which should be stable enough for use by others:
 - [pi-tree-editor](https://github.com/arcanemachine/pi-tree-editor) - Add, modify, and remove items in the /tree conversation history.
 - [pi-web-search](https://github.com/arcanemachine/pi-web-search) Yet another web search extension. Supports DuckDuckGo (no config required) and Brave (requires API key; can use free tier)
 
-### Personal/unstable packages
+### Personal packages
 
-Packages which are intended for my own use, or are not yet stable:
+Packages which are intended for my own use:
 
-- [pi-session-manager](https://github.com/arcanemachine/pi-session-manager) (unstable, personal) - Use tmux to start a fleet of Pi sessions.
-- [pi-workflow](https://github.com/arcanemachine/pi-workflow) (personal) - Create custom workflows for getting stuff done in different projects. (Basically just project-scoped skills that define how to proceed with a given task or set of tasks)
+- [pi-session-manager](https://github.com/arcanemachine/pi-session-manager) Use tmux to start a fleet of Pi sessions. (After starting, lifecycle can be managed by [inter-agent-pi](https://github.com/arcanemachine/inter-agent-pi))
+- [pi-workflow](https://github.com/arcanemachine/pi-workflow) Create custom workflows for getting stuff done in different projects. (Basically just project-scoped skills that define how to proceed with a given task or set of tasks)
 
 ## Development
 
