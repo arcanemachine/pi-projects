@@ -75,7 +75,7 @@ For a new package that cannot yet be released, commit the child repository befor
 
 When adding a new extension package:
 
-1. Verify the intended remote repository is reachable and has a commit. Create/clone it as a Git submodule at `packages/<name>`; if the remote is empty and pushing is not authorized, initialize the child locally, set the intended remote URL, and record the follow-up needed before external cloning works.
+1. Verify the intended remote repository is reachable and has a commit. Create/clone it as a Git submodule at `packages/<name>` on the child repository's `main` branch; if the remote is empty or unreachable and pushing is not authorized, initialize the child locally on `main`, set the intended remote URL, and record the follow-up needed before external cloning works.
 2. Read and follow `/workspace/projects/pi/_git/pi-package-template/AGENTS.md` and `package.json`, then ensure child package basics are complete (`package.json`, `pi` manifest, entrypoint, deps) and match the current package metadata checklist and logo rules when applicable.
 3. Run the focused documentation survey described above, independently verify its findings, and bring the package README, AGENTS, changelog, and metadata into the verified current house style.
 4. Add the package extension path to root `package.json` → `pi.extensions` for single-install workflow.

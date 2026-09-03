@@ -17,6 +17,7 @@ Packages live in `packages/` and are independently usable and versioned.
 Packages which should be stable enough for use by others:
 
 - [pi-advice](https://github.com/arcanemachine/pi-advice) - Get a single reconsideration prompt from a more powerful model, then continue working. (Good for giving a quick boost to weaker models.)
+- [pi-context-available](https://github.com/arcanemachine/pi-context-available) - Show the agent its current context usage, capacity, and percentage.
 - [pi-model-switcher](https://github.com/arcanemachine/pi-model-switcher) - Allow agents to autonomously switch from one LLM model to another.
 - [pi-notify-marker](https://github.com/arcanemachine/pi-notify-marker) - When Pi is done working ("settled"), create a file. Used to provide notifications via a file-watcher script when running Pi in a container.
 - [pi-read](https://github.com/arcanemachine/pi-read) - A tweaked Pi Read tool with configurable line/byte limits.
