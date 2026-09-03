@@ -29,6 +29,22 @@ This is the root agent file for the `pi-projects` superproject.
 - Do not push unless explicitly asked.
 - The user probably knows what they work on. Don't brainstorm new extension ideas for them, unless prompted to do so.
 
+### Misc workflow guidelines
+
+- For a plain user-facing Pi extension notification, use `ctx.ui.notify(message, type)`. Do not substitute terminal notification protocols, desktop notification commands, or a custom transcript message when the requirement is an ordinary Pi notification.
+
+## Temporary draft: new-extension workflow improvements
+
+> This is a temporary working section collected while creating `pi-stash`. During closeout, integrate only the durable, evergreen items into **New package workflow**, then remove this section. Do not treat these notes as a second permanent workflow.
+
+- Choose and document one canonical package baseline. The current maintained house style is a source-loaded `src/index.ts` extension with Vitest, TypeScript, Prettier, `pi.extensions`, optional-peer Pi packages, `pi-package` discovery metadata, and a complete npm package manifest.
+- Add a concrete metadata checklist to **New package workflow**: scoped package naming, `pi-package` keyword, `pi.extensions`, `files`, `repository`, `homepage`, `bugs`, `engines`, `publishConfig.access`, peer dependencies, and the optional gallery image/logo decision.
+- State explicitly that an extension setting belongs in Pi's main `settings.json`, under an exact top-level extension-name namespace, unless a package-owned config file is explicitly approved. Do not invent an extension-specific config file by default.
+- State the plain Pi notification rule above near the extension API guidance, because terminal/desktop notification examples are easy to confuse with `ctx.ui.notify`.
+- Record the required package-local and root validation commands, the live TUI check for user-facing behavior, the root formatter warning, and child-repository-first commit ordering.
+- Add a closeout checkpoint asking whether the package should be released to npm and whether it should receive a logo/gallery image. Do not publish or push without explicit authorization.
+- Decide during retrospective whether a reusable scaffold/template is warranted; do not add one merely because this extension was created.
+
 ## Commit order (critical)
 
 When a child package changes:
