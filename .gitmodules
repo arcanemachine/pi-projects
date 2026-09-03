@@ -37,3 +37,6 @@
 [submodule "packages/pi-model-switcher"]
 	path = packages/pi-model-switcher
 	url = git@github.com:arcanemachine/pi-model-switcher.git
+[submodule "packages/pi-stash"]
+	path = packages/pi-stash
+	url = git@github.com:arcanemachine/pi-stash.git

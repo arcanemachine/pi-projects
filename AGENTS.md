@@ -40,17 +40,24 @@ This is the root agent file for the `pi-projects` superproject.
 - Keep these planning and meta-documents out of child package repositories. Child repositories should contain implementation, user-facing package documentation, and package-local maintenance instructions—not superproject coordination artifacts.
 - Treat plan files as working documents: update them as decisions change, and remove them when the plan's closeout instructions say they are no longer needed.
 
-## Temporary draft: new-extension workflow improvements
+## Package documentation and metadata
 
-> This is a temporary working section collected while creating `pi-stash`. During closeout, integrate only the durable, evergreen items into **New package workflow**, then remove this section. Do not treat these notes as a second permanent workflow.
+When creating or materially updating an extension package:
 
-- Choose and document one canonical package baseline. The current maintained house style is a source-loaded `src/index.ts` extension with Vitest, TypeScript, Prettier, `pi.extensions`, optional-peer Pi packages, `pi-package` discovery metadata, and a complete npm package manifest.
-- Add a concrete metadata checklist to **New package workflow**: scoped package naming, `pi-package` keyword, `pi.extensions`, `files`, `repository`, `homepage`, `bugs`, `engines`, `publishConfig.access`, peer dependencies, and the optional gallery image/logo decision.
-- State explicitly that an extension setting belongs in Pi's main `settings.json`, under an exact top-level extension-name namespace, unless a package-owned config file is explicitly approved. Do not invent an extension-specific config file by default.
-- State the plain Pi notification rule above near the extension API guidance, because terminal/desktop notification examples are easy to confuse with `ctx.ui.notify`.
-- Record the required package-local and root validation commands, the live TUI check for user-facing behavior, the root formatter warning, and child-repository-first commit ordering.
-- Add a closeout checkpoint asking whether the package should be released to npm and whether it should receive a logo/gallery image. Do not publish or push without explicit authorization.
-- Decide during retrospective whether a reusable scaffold/template is warranted; do not add one merely because this extension was created.
+- Match the current maintained package baseline: source-loaded `src/index.ts`, TypeScript, Vitest, Prettier, `pi.extensions`, optional Pi peer dependencies, `pi-package` discovery metadata, and a complete npm manifest.
+- Read `/workspace/projects/pi/_git/pi-package-template/AGENTS.md` and its `package.json` before creating a package. Treat that template as the authoritative Pi resource-manifest and npm-metadata baseline, adapting its resource directories to the package's actual contents without adding unused resource types.
+- Before finalizing a new package, assign a focused documentation survey: have a sub-agent inspect several recently maintained sibling extensions and recent documentation edits, report concrete README/AGENTS/changelog/metadata and workflow conventions, then independently verify the findings. Make the new package documentation match the verified current style rather than copying an arbitrary older package.
+- Check the package metadata for the scoped package name, `pi-package` keyword, `pi.extensions`, `files`, repository, homepage, bugs, Node engine, `publishConfig.access`, and optional peer dependencies. Add only dependencies the implementation actually imports.
+- Put extension settings in Pi's main `settings.json` under an exact top-level namespace matching the extension name unless a package-owned config file is explicitly approved. Do not invent a second configuration file by default.
+- Verify package-local `format:check`, `typecheck`, `test`, `build`, and `npm pack --dry-run`, then run the applicable root `pnpm` validation and an isolated live TUI check for user-facing behavior. Do not run the destructive root formatter for focused package work.
+- Verify that a new package's remote repository has a reachable commit before using it as a submodule. If the remote is empty and pushing is not authorized, initialize the child locally, record the intended remote URL, and call out the required follow-up rather than pretending the remote is cloneable.
+
+## Logos and gallery assets
+
+- When an extension has a gallery logo, the asset must be named `logo.jpg`, be exactly 500×500 pixels, and be encoded as JPEG.
+- Add the standard centered 250-pixel logo image with descriptive alt text to the package README.
+- Reference the raw GitHub asset in `package.json` → `pi.image` and include `logo.jpg` in the published `files` list.
+- Ask at closeout whether the package should receive a logo/gallery image and whether it should be released to npm. Under the project convention, an npm release requires a logo. Do not publish or push without explicit authorization.
 
 ## Commit order (critical)
 
@@ -63,12 +70,14 @@ When a child package changes:
 
 When adding a new extension package:
 
-1. Create/clone it as a Git submodule at `packages/<name>`.
-2. Ensure child package basics are complete (`package.json`, `pi` manifest, entrypoint, deps).
-3. Add the package extension path to root `package.json` → `pi.extensions` for single-install workflow.
-4. Update root docs only as needed (`README.md` package list).
-5. Validate from root.
-6. Commit child repo first, then superproject pointer/integration.
+1. Verify the intended remote repository is reachable and has a commit. Create/clone it as a Git submodule at `packages/<name>`; if the remote is empty and pushing is not authorized, initialize the child locally, set the intended remote URL, and record the follow-up needed before external cloning works.
+2. Read and follow `/workspace/projects/pi/_git/pi-package-template/AGENTS.md` and `package.json`, then ensure child package basics are complete (`package.json`, `pi` manifest, entrypoint, deps) and match the current package metadata checklist and logo rules when applicable.
+3. Run the focused documentation survey described above, independently verify its findings, and bring the package README, AGENTS, changelog, and metadata into the verified current house style.
+4. Add the package extension path to root `package.json` → `pi.extensions` for single-install workflow.
+5. Update root docs only as needed (`README.md` package list); keep plans, ideas, task lists, and other coordination artifacts in superproject `docs/<project-name>/`, not in the child package.
+6. Validate package-local behavior and packaging, then run the applicable root `pnpm` checks and isolated live user-facing verification. Never use the destructive root formatter for focused work.
+7. Ask the closeout npm-release and logo questions. Do not publish or push without explicit authorization.
+8. Commit the child repository first, then commit the updated superproject pointer and integration changes.
 
 ## Formatting discipline
 

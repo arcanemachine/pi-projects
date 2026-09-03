@@ -21,6 +21,7 @@
       "./packages/pi-role/src/index.ts",
       "./packages/pi-session-manager/src/index.ts",
       "./packages/pi-session-snapshot/src/index.ts",
+      "./packages/pi-stash/src/index.ts",
       "./packages/pi-tree-editor/src/index.ts",
       "./packages/pi-subagent/src/index.ts",
       "./packages/pi-supercompact/src/index.ts",

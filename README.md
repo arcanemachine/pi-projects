@@ -23,6 +23,7 @@ Packages which should be stable enough for use by others:
 - [pi-retry](https://github.com/arcanemachine/pi-retry) - Retry stopped, stalled, or slow responses.
 - [pi-role](https://github.com/arcanemachine/pi-role) - Create and use custom roles for your Pi sessions (e.g. architect, worker, etc.).
 - [pi-session-snapshot](https://github.com/arcanemachine/pi-session-snapshot) - Save the current conversation as a snapshot to be reused across sessions.
+- [pi-stash](https://github.com/arcanemachine/pi-stash) - Stash and restore one ephemeral Pi prompt with a keyboard shortcut.
 - [pi-subagent](https://github.com/arcanemachine/pi-subagent) - Yet another subagent extension.
 - [pi-supercompact](https://github.com/arcanemachine/pi-supercompact) - Improved compaction system. Intended to make your agent forget less after compaction.
 - [pi-tree-editor](https://github.com/arcanemachine/pi-tree-editor) - Add, modify, and remove items in the /tree conversation history.
