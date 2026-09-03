@@ -242,7 +242,7 @@ Closeout is ordered and must not be skipped:
 3. Remove the entire temporary draft section from root `AGENTS.md` after integration. Do not leave a stale process diary or references to this specific extension in evergreen guidance.
 4. Ask the user, explicitly and separately, whether they want to add a logo/gallery image and whether they want to release `@arcanemachine/pi-stash` to npm. If npm release is desired, confirm the logo decision before publishing because the user's general rule is to have a logo when releasing to npm.
 5. Do not push or publish without explicit authorization. A release decision is not implied by successful local packaging.
-6. Delete `/workspace/projects/pi/PI-STASH-PLAN.md` as required by this plan. The deletion belongs in the final superproject integration/closeout commit, after the child package commit and all verification.
+6. Delete `/workspace/projects/pi/docs/pi-stash/PLAN.md` as required by this plan. The deletion belongs in the final superproject integration/closeout commit, after the child package commit and all verification.
 7. Commit the child repository first. Then commit the superproject changes: submodule pointer, `.gitmodules`, root manifest/README, permanent workflow guidance, and plan-file deletion. Stage only files belonging to this work.
 8. Report the final paths, checks, live verification result, commit order, whether the logo/release questions were answered, and the reminder that the temporary plan was intentionally removed.
 

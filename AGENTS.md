@@ -33,6 +33,13 @@ This is the root agent file for the `pi-projects` superproject.
 
 - For a plain user-facing Pi extension notification, use `ctx.ui.notify(message, type)`. Do not substitute terminal notification protocols, desktop notification commands, or a custom transcript message when the requirement is an ordinary Pi notification.
 
+## Planning and project meta-documents
+
+- Store project plans, design notes, ideas, task lists, and other project/process meta-documents in the superproject under `docs/<project-name>/`, where `<project-name>` matches the project or extension name.
+- For an active effort, use `docs/<project-name>/PLAN.md` as its canonical plan when a plan is needed. Add other focused documents in the same directory when useful.
+- Keep these planning and meta-documents out of child package repositories. Child repositories should contain implementation, user-facing package documentation, and package-local maintenance instructions—not superproject coordination artifacts.
+- Treat plan files as working documents: update them as decisions change, and remove them when the plan's closeout instructions say they are no longer needed.
+
 ## Temporary draft: new-extension workflow improvements
 
 > This is a temporary working section collected while creating `pi-stash`. During closeout, integrate only the durable, evergreen items into **New package workflow**, then remove this section. Do not treat these notes as a second permanent workflow.
