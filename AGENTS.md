@@ -27,7 +27,7 @@ This is the root agent file for the `pi-projects` superproject.
 - When adding package-specific dependencies from the superproject, use `pnpm --filter <package-name> add [-D] <dependency>` from the repo root. This updates the child package manifest and the root lockfile while keeping the child package standalone.
 - Follow commit instructions from the most specific applicable agent file (for example `packages/<name>/AGENTS.md`). When work is complete, make the required commit(s) before reporting completion.
 - Do not push unless explicitly asked.
-- For a requested fix or change to an existing child package, the default delivery sequence is: make and validate the change, commit it atomically in the child repository, cut a package release, then commit the updated submodule pointer and any integration changes atomically in this superproject. A direct request to make the package change authorizes those commits and the release unless the user explicitly opts out; pushing Git commits still requires explicit authorization.
+- For a requested fix or change to an existing child package, the default delivery sequence is: make and validate the change, commit it atomically in the child repository, prepare and tag the package release locally without publishing it, then commit the updated submodule pointer and any integration changes atomically in this superproject. The user owns npm publication; agents must not run `npm publish` or otherwise publish package artifacts. A direct request to make the package change authorizes those commits and local release preparation unless the user explicitly opts out; pushing Git commits still requires explicit authorization.
 - The user probably knows what they work on. Don't brainstorm new extension ideas for them, unless prompted to do so.
 
 ### Misc workflow guidelines
@@ -58,7 +58,7 @@ When creating or materially updating an extension package:
 - When an extension has a gallery logo, the asset must be named `logo.jpg`, be exactly 500×500 pixels, and be encoded as JPEG.
 - Add the standard centered 250-pixel logo image with descriptive alt text to the package README.
 - Reference the raw GitHub asset in `package.json` → `pi.image` and include `logo.jpg` in the published `files` list.
-- Ask at closeout whether the package should receive a logo/gallery image and whether it should be released to npm. Under the project convention, an npm release requires a logo. Do not publish or push without explicit authorization.
+- Ask at closeout whether the package should receive a logo/gallery image and whether it should be released to npm. Under the project convention, an npm release requires a logo. The user owns npm publication; agents must not publish packages or push Git changes without explicit authorization.
 
 ## Release and commit order (critical)
 
@@ -66,7 +66,7 @@ When an existing child package changes:
 
 1. Make and validate the focused change.
 2. Commit the change atomically in the child package repository.
-3. Cut the package release.
+3. Prepare and tag the package release locally; do not publish it to npm.
 4. Commit the updated submodule pointer and any integration changes atomically in the superproject.
 
 For a new package that cannot yet be released, commit the child repository before committing its submodule pointer in the superproject.
