@@ -338,9 +338,6 @@ importers:
 
   packages/pi-workflow:
     devDependencies:
-      '@earendil-works/pi-ai':
-        specifier: 0.80.10
-        version: 0.80.10(ws@8.20.1)(zod@4.4.3)
       '@earendil-works/pi-coding-agent':
         specifier: 0.80.10
         version: 0.80.10(ws@8.20.1)(zod@4.4.3)
