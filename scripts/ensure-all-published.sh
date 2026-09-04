@@ -5,7 +5,7 @@ set -u -o pipefail
 repo_root="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)"
 published=()
 unpublished=()
-errors=()
+check_failures=()
 checked=0
 
 if [[ -t 1 && -z "${NO_COLOR:-}" ]]; then
@@ -44,7 +44,7 @@ NODE
   )"
 
   if [[ $? -ne 0 ]]; then
-    errors+=("$package_path (invalid package.json)")
+    check_failures+=("$package_path (invalid package.json)")
     continue
   fi
 
@@ -67,7 +67,7 @@ NODE
   else
     error_summary="${npm_output//$'\n'/ }"
     error_summary="${error_summary//$'\r'/ }"
-    errors+=("$package_path — $package_spec (${error_summary:0:200})")
+    check_failures+=("$package_path — $package_spec (${error_summary:0:200})")
   fi
 done
 
@@ -87,14 +87,14 @@ if (( ${#unpublished[@]} > 0 )); then
   done
 fi
 
-if (( ${#errors[@]} > 0 )); then
-  printf '\nErrors checking publication status:\n'
-  for item in "${errors[@]}"; do
+if (( ${#check_failures[@]} > 0 )); then
+  printf '\nUnable to determine publication status:\n'
+  for item in "${check_failures[@]}"; do
     printf ' %s✗%s %s\n' "$red" "$reset" "$item"
   done
 fi
 
-if (( ${#errors[@]} > 0 )); then
+if (( ${#check_failures[@]} > 0 )); then
   exit 2
 elif (( ${#unpublished[@]} > 0 )); then
   exit 1
