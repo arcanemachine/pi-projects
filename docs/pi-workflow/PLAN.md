@@ -2,7 +2,7 @@
 
 ## Status and planning boundary
 
-This is a promoted planning artifact for a deferred follow-up. It is not implementation authorization. No package source, workflow catalog behavior, project assignment, or user-facing command behavior should be changed until the unresolved decisions and the execution route below have been addressed.
+This is the active canonical planning artifact for the approved `/workflows` enhancement. Implementation is authorized by current user direction, but the immediate stage is bounded investigation and structured decision resolution. No package source, workflow catalog behavior, project assignment, or user-facing command behavior should be changed by guessing unresolved decisions or before the required execution route is approved.
 
 The plan originated as the sole item in `docs/pi-workflow/TODO.md`. That TODO item has been promoted here so the useful context survives without leaving a duplicate task entry.
 
@@ -143,7 +143,7 @@ Stop and return to the user or owning Architect when:
 
 ## Promotion to execution
 
-This plan becomes executable only after the open decisions are resolved and the user approves the resulting implementation scope and route. At that point, update this plan with the accepted decisions and concrete allowed paths rather than making the implementation owner reconstruct them from conversation history.
+The implementation effort is active, but this plan becomes executable only after the open decisions are resolved and the user approves the resulting implementation scope and route. At that point, update this plan with the accepted decisions and concrete allowed paths rather than making the implementation owner reconstruct them from conversation history.
 
 ## Closeout and lifecycle cleanup
 
