@@ -2,7 +2,7 @@
 
 ## Status and planning boundary
 
-This is the active canonical planning artifact for the approved `/workflows` enhancement. Implementation is authorized by current user direction and the product/API decisions recorded below. The plan is now executable within its bounded scope; the context-preservation route remains subject to the required post-plan checkpoint.
+This is the active canonical planning artifact for the approved `/workflows` enhancement. Implementation is authorized by current user direction and the product/API decisions recorded below. The plan is executable within its bounded scope, and the committed-plan context-preservation route is selected. This durable plan is the recovery source; no duplicate temporary plan is needed.
 
 The plan originated as the sole item in `docs/pi-workflow/TODO.md`. That TODO item has been promoted here so the useful context survives without leaving a duplicate task entry.
 
@@ -118,9 +118,9 @@ No additional catalog, project-storage, role-integration, or broad repository in
 
 ## Execution route and authority
 
-The product decisions, exact allowed paths, implementation sequence, and verification/acceptance gates above form the executable implementation brief. Package guidance requires one implementation agent to follow the four sequence steps in order, with no Architect/Sergeant/Worker routing. The remaining process choice is only the context-preservation route required by `context-aware-execution`: after this executable-plan update, report the context checker result and obtain the user’s choice between in-session execution and a committed temporary execution plan. That route choice does not broaden scope or change the package’s single-agent sequence.
+The product decisions, exact allowed paths, implementation sequence, and verification/acceptance gates above form the executable implementation brief. Package guidance requires one implementation agent to follow the four sequence steps in order, with no Architect/Sergeant/Worker routing. The committed-plan context-preservation route is selected, using this durable `PLAN.md` as the recovery source rather than creating a duplicate temporary execution plan. After compaction, revalidate this plan and the child/superproject state, then continue with the required implementation sequence. The route choice does not broaden scope or change the package’s single-agent sequence.
 
-Do not begin package source edits until the context route is selected. Do not commit user-facing package changes until deterministic checks pass and explicit live Pi acceptance is obtained.
+Do not begin package source edits before recovering and revalidating this plan after compaction. Do not commit user-facing package changes until deterministic checks pass and explicit live Pi acceptance is obtained.
 
 ## Verification and acceptance
 
@@ -161,7 +161,7 @@ Stop and return to the user or owning Architect when:
 
 ## Executable-plan status
 
-The open decisions are resolved and the user approved the resulting implementation scope. This plan now contains the accepted behavior, implementation mechanism, exact allowed paths, sequence, verification, acceptance gate, and stop conditions. Before package source edits, complete the context-aware route checkpoint and record the selected route in the execution report. Update this plan if an accepted decision or exact path changes; do not improvise a new mechanism during implementation.
+The open decisions are resolved and the user approved the resulting implementation scope and committed-plan context route. This plan contains the accepted behavior, implementation mechanism, exact allowed paths, sequence, verification, acceptance gate, and stop conditions. After compaction, revalidate the selected route and recovered state before package source edits. Update this plan if an accepted decision or exact path changes; do not improvise a new mechanism during implementation.
 
 ## Closeout and lifecycle cleanup
 
