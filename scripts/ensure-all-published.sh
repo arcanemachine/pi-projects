@@ -19,6 +19,8 @@ else
   reset=""
 fi
 
+printf 'Checking if all packages are current on npm...\n\n'
+
 shopt -s nullglob
 for package_json in "$repo_root"/packages/*/package.json; do
   package_dir="$(dirname -- "$package_json")"
