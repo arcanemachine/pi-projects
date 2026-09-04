@@ -4,6 +4,7 @@ set -u -o pipefail
 
 repo_root="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)"
 published=()
+needs_publication=()
 unpublished=()
 check_failures=()
 checked=0
@@ -55,15 +56,15 @@ NODE
   package_spec="${package_name}@${current_version}"
   npm_output=""
 
-  if npm_output="$(npm view "$package_spec" version 2>&1)"; then
+  if npm_output="$(npm view "$package_name" version 2>&1)"; then
     published_version="$(printf '%s' "$npm_output" | tr -d '\r\n')"
     if [[ "$published_version" == "$current_version" ]]; then
       published+=("$package_path — $package_spec")
     else
-      unpublished+=("$package_path — $package_spec (registry returned ${published_version:-no version})")
+      needs_publication+=("$package_path — $package_spec (npm latest is ${published_version:-unknown})")
     fi
   elif [[ "$npm_output" == *E404* || "$npm_output" == *404* ]]; then
-    unpublished+=("$package_path — $package_spec (not published)")
+    unpublished+=("$package_path — $package_spec (never published)")
   else
     error_summary="${npm_output//$'\n'/ }"
     error_summary="${error_summary//$'\r'/ }"
@@ -77,6 +78,13 @@ if (( ${#published[@]} == 0 )); then
 else
   for item in "${published[@]}"; do
     printf ' %s✓%s %s\n' "$green" "$reset" "$item"
+  done
+fi
+
+if (( ${#needs_publication[@]} > 0 )); then
+  printf '\nPackages needing publication:\n'
+  for item in "${needs_publication[@]}"; do
+    printf ' %s✗%s %s\n' "$red" "$reset" "$item"
   done
 fi
 
@@ -96,7 +104,7 @@ fi
 
 if (( ${#check_failures[@]} > 0 )); then
   exit 2
-elif (( ${#unpublished[@]} > 0 )); then
+elif (( ${#needs_publication[@]} > 0 || ${#unpublished[@]} > 0 )); then
   exit 1
 fi
 
