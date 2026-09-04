@@ -41,7 +41,7 @@ The accepted implementation mechanism and UX decisions are recorded below. They 
 - The package does not provide workflow execution, lifecycle state, revisions, gates, session attachment, plan inspection/editing, project-local catalogs, or bundled workflow definitions.
 - Missing workflows and invalid workflow files are surfaced as catalog diagnostics rather than being silently treated as valid definitions.
 
-The new invocation behavior must not make the agent tools mutate workflow files or `projects.json`, must not add project-local or bundled workflow storage, and must not imply that selecting a workflow executes it automatically. Invocation means inserting the selected Markdown into the current conversation.
+The new invocation behavior must not make the agent tools mutate workflow files or `projects.json`, must not add project-local or bundled workflow storage, and must not select project or role context. Invocation means inserting the selected Markdown into the current conversation and requesting an agent turn.
 
 ## Scope
 
@@ -67,7 +67,7 @@ Follow the package’s required single-agent sequence without Architect/Sergeant
 
 1. Add the top-level **Workflows** menu and route **Edit project workflows** through the existing configurator. Returning from that submenu must leave all existing staged-save, discard, and cancellation semantics intact.
 2. Add **Invoke workflow** using the existing global catalog discovery and selection UI. Include only valid, readable, in-bound workflow definitions, sorted by workflow ID, while surfacing catalog diagnostics as warnings.
-3. Inject the selected workflow’s exact `workflow.raw` through `pi.sendMessage` with `customType: "pi-workflow"`, `display: true`, and `{ triggerTurn: false }`. Do not use `setEditorText` or `sendUserMessage`.
+3. Inject the selected workflow’s exact `workflow.raw` through `pi.sendMessage` with `customType: "pi-workflow"`, `display: true`, and `{ triggerTurn: true }`. Do not use `setEditorText` or `sendUserMessage`.
 4. Add focused deterministic tests, update maintained documentation/changelog, run all required package checks, then perform isolated live Pi acceptance. Do not commit package changes until the live user-facing gate is satisfied.
 
 ## Non-goals
@@ -87,11 +87,11 @@ The user approved the following decisions and the bounded implementation scope:
 1. **Invocation scope:** **Invoke workflow** lists every valid workflow in the existing global workflow catalog. It does not filter by project or role and does not infer context from the working directory, repository name, or role filenames.
 2. **Project and role context:** Invocation does not load or select a project or active role. The existing project/role configuration flow remains available only under **Edit project workflows**.
 3. **Invalid and unavailable entries:** Invalid, oversized, and unreadable workflow files are omitted from the selectable invocation list. Their existing catalog diagnostics are shown as warnings. A catalog-directory read failure is a command error (`READ_FAILED`). If no valid entries remain, notify the user and return without changing the conversation or configuration.
-4. **Insertion contract:** Use the authoritative `pi.sendMessage` API with `{ customType: "pi-workflow", content: workflow.raw, display: true }` and `{ triggerTurn: false }`. Pi persists the message as a custom conversation entry, renders it in the transcript, and converts it to an LLM user message. It appends without starting an agent turn while idle and defers safely until the current turn ends while streaming.
+4. **Insertion contract:** Use the authoritative `pi.sendMessage` API with `{ customType: "pi-workflow", content: workflow.raw, display: true }` and `{ triggerTurn: true }`. Pi persists the message as a custom conversation entry, renders it in the transcript, and converts it to an LLM user message. It appends and starts an agent turn while idle, and follows Pi’s safe deferred ordering while streaming.
 5. **Confirmation and cancellation:** Selecting a valid workflow inserts immediately and closes `/workflows`; no second confirmation is shown. Escape from the invocation list returns to the top-level menu. Escape from the top-level menu exits. Cancellation never changes `projects.json`, workflow files, or the conversation.
 6. **Content framing:** Pass `workflow.raw` byte-for-byte. Do not add a source label, wrapper, or other framing.
 7. **Menu navigation:** The top-level menu is titled **Workflows** and contains exactly **Edit project workflows** and **Invoke workflow**. Selecting **Edit project workflows** opens the existing configurator; when it returns, the top-level menu is shown again. Existing project/role hover behavior, staged edits, save-before-exit confirmation, safe-default deletion, and discard behavior remain unchanged inside that submenu.
-8. **Acceptance surface:** In an isolated live Pi session, demonstrate top-level navigation, exact raw-content insertion without an automatic assistant turn, Escape cancellation, invalid-entry diagnostics/omission, unchanged configuration during invocation, and preserved edit/save/discard behavior. Explicit user acceptance is required before package acceptance or commit.
+8. **Acceptance surface:** In an isolated live Pi session, demonstrate top-level navigation, exact raw-content insertion followed by an agent turn, Escape cancellation, invalid-entry diagnostics/omission, unchanged configuration during invocation, and preserved edit/save/discard behavior. Explicit user acceptance is required before package acceptance or commit.
 
 ## Completed bounded investigation and source anchors
 
@@ -102,7 +102,7 @@ The required investigation is complete and must remain the basis for implementat
 - `packages/pi-workflow/src/catalog.ts` returns sorted catalog entries with validated `workflow.raw` and diagnostics; `requireWorkflow` rejects missing, unreadable, oversized, and invalid entries. Invocation must reuse this behavior rather than parse a second format.
 - `packages/pi-workflow/src/projects.ts` gives `/workflows` exclusive atomic ownership of `projects.json`; invocation must not call it.
 - `packages/pi-workflow/tests/command.test.ts`, `tests/extension.integration.test.ts`, and `tests/ui-pump.test.ts` are the focused behavior and renderer references.
-- Pi `docs/extensions.md`, `docs/sdk.md`, `docs/tui.md`, `docs/session-format.md`, the installed declarations, and `dist/core/agent-session.js` establish that `pi.sendMessage` is the insertion API, custom messages use role `custom`, custom content is converted to LLM role `user`, and `triggerTurn: false` prevents an automatic turn while preserving safe deferred ordering during streaming.
+- Pi `docs/extensions.md`, `docs/sdk.md`, `docs/tui.md`, `docs/session-format.md`, the installed declarations, and `dist/core/agent-session.js` establish that `pi.sendMessage` is the insertion API, custom messages use role `custom`, custom content is converted to LLM role `user`, and `triggerTurn: true` requests an agent turn while preserving safe deferred ordering during streaming.
 - Pi `ctx.ui.setEditorText` only prefills the editor, while `pi.sendUserMessage` always triggers a turn; neither satisfies insertion-only behavior.
 
 No additional catalog, project-storage, role-integration, or broad repository investigation is authorized or needed for this implementation.
@@ -113,7 +113,7 @@ No additional catalog, project-storage, role-integration, or broad repository in
 - Keep `projects.json` writes restricted to the existing `/workflows` configuration path and its atomic save behavior.
 - Reuse existing catalog validation and bounded output rules where possible; do not create a second workflow parser or an unbounded content path.
 - Ensure invocation cannot expose unbounded workflow content beyond the existing workflow size and conversation/tool-output constraints.
-- Preserve user control: selecting a workflow inserts text but does not execute tools, switch roles, alter active tools, or silently change project configuration.
+- Preserve user control: selecting a workflow inserts the selected text and requests the agent turn, but does not select a project or role, alter active tools, or silently change project configuration.
 - Keep the new command behavior independently testable and avoid generic repositories, adapters, service locators, or plugin frameworks.
 
 ## Execution route and authority
@@ -131,7 +131,7 @@ The implementation must add deterministic coverage for:
 - preservation of existing edit navigation, hover retention, staged assignment changes, save-before-exit, discard, and deletion safety;
 - global invocation scope and stable workflow-ID ordering;
 - omission and warning behavior for invalid, oversized, unreadable, and empty catalogs;
-- exact `workflow.raw` passed to the injected message action with `customType: "pi-workflow"`, `display: true`, and `triggerTurn: false`;
+- exact `workflow.raw` passed to the injected message action with `customType: "pi-workflow"`, `display: true`, and `triggerTurn: true`;
 - no invocation-time mutation of workflow files or `projects.json`;
 - repeated command entry and Escape without duplicate insertion.
 
@@ -145,7 +145,7 @@ npm run format
 npm pack --dry-run
 ```
 
-Then perform an isolated live Pi verification using a temporary absolute `PI_WORKFLOW_DIR` containing at least one valid workflow and one malformed/oversized entry. Exercise `/workflows` through the real TUI: open the top menu, enter **Invoke workflow**, cancel once and verify no transcript/configuration change, select the valid workflow and verify the transcript contains the exact raw bytes with no automatic assistant response, reopen and verify no duplicate insertion, then enter **Edit project workflows** and verify existing staged-save/discard behavior. Record the observed result and obtain explicit user acceptance before package acceptance, implementation commit, superproject integration, or closeout.
+Then perform an isolated live Pi verification using a temporary absolute `PI_WORKFLOW_DIR` containing at least one valid workflow and one malformed/oversized entry. Exercise `/workflows` through the real TUI: open the top menu, enter **Invoke workflow**, cancel once and verify no transcript/configuration change, select the valid workflow and verify the transcript contains the exact raw bytes and an agent turn is requested, reopen and verify no duplicate insertion, then enter **Edit project workflows** and verify existing staged-save/discard behavior. Record the observed result and obtain explicit user acceptance before package acceptance, implementation commit, superproject integration, or closeout.
 
 ## Stop conditions
 
@@ -154,7 +154,7 @@ Stop and return to the user or owning Architect when:
 - implementation needs a path outside the exact allowed list;
 - the implementation would change global catalog discovery, workflow format, `projects.json` ownership, role integration, or execution semantics;
 - the current configurator’s staged-save, safe-default deletion, or cancellation semantics cannot be preserved;
-- invocation would require project/role inference, a second parser, unbounded content handling, framing not recorded above, or an automatic turn;
+- invocation would require project/role inference, a second parser, unbounded content handling, framing not recorded above, or turn behavior beyond the approved `triggerTurn: true` request;
 - deterministic checks, package checks, or live verification fail without an obvious in-scope correction;
 - the context-preservation route is not selected;
 - explicit user-facing acceptance is missing.
