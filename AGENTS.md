@@ -40,6 +40,7 @@ This is the root agent file for the `pi-projects` superproject.
 - For an active effort, use `docs/<project-name>/PLAN.md` as its canonical plan when a plan is needed. Add other focused documents in the same directory when useful.
 - Keep these planning and meta-documents out of child package repositories. Child repositories should contain implementation, user-facing package documentation, and package-local maintenance instructions—not superproject coordination artifacts.
 - Commit any additions or changes to these planning and meta-documents, keeping those commits separate from implementation changes.
+- When promoting a TODO item into active planning, move its relevant content into the canonical `PLAN.md` and remove it from the TODO file instead of duplicating it. Delete the TODO file when no items remain. When lifecycle cleanup leaves `docs/<project-name>/` with no planning or meta-document files, remove that directory as well. Commit related artifact additions, promotions, and removals as one coherent planning-document change.
 - Treat plan files as working documents: update them as decisions change, and remove them when the plan's closeout instructions say they are no longer needed.
 
 ## Package documentation and metadata
