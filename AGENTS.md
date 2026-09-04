@@ -39,6 +39,7 @@ This is the root agent file for the `pi-projects` superproject.
 - Store project plans, design notes, ideas, task lists, and other project/process meta-documents in the superproject under `docs/<project-name>/`, where `<project-name>` matches the project or extension name.
 - For an active effort, use `docs/<project-name>/PLAN.md` as its canonical plan when a plan is needed. Add other focused documents in the same directory when useful.
 - Keep these planning and meta-documents out of child package repositories. Child repositories should contain implementation, user-facing package documentation, and package-local maintenance instructions—not superproject coordination artifacts.
+- Commit any additions or changes to these planning and meta-documents, keeping those commits separate from implementation changes.
 - Treat plan files as working documents: update them as decisions change, and remove them when the plan's closeout instructions say they are no longer needed.
 
 ## Package documentation and metadata
