@@ -1,0 +1,86 @@
+#!/usr/bin/env bash
+
+set -u -o pipefail
+
+repo_root="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)"
+published=()
+skipped=()
+failures=()
+
+printf 'Publishing all npm packages...\n\n'
+
+shopt -s nullglob
+for package_dir in "$repo_root"/packages/*; do
+  [[ -d "$package_dir" ]] || continue
+
+  package_json="$package_dir/package.json"
+  [[ -f "$package_json" ]] || continue
+
+  package_path="${package_dir#"$repo_root"/}"
+  if ! metadata="$(node - "$package_json" <<'NODE'
+const fs = require("node:fs");
+
+const packageJsonPath = process.argv[2];
+try {
+  const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, "utf8"));
+  if (packageJson.private === true) {
+    process.stdout.write("PRIVATE");
+  } else if (
+    typeof packageJson.name !== "string" ||
+    typeof packageJson.version !== "string"
+  ) {
+    process.exit(1);
+  } else {
+    process.stdout.write(`${packageJson.name}\t${packageJson.version}`);
+  }
+} catch {
+  process.exit(1);
+}
+NODE
+  )"; then
+    failures+=("$package_path (invalid package.json)")
+    continue
+  fi
+
+  if [[ "$metadata" == "PRIVATE" ]]; then
+    skipped+=("$package_path (private package)")
+    continue
+  fi
+
+  IFS=$'\t' read -r package_name package_version <<< "$metadata"
+  package_spec="${package_name}@${package_version}"
+  printf 'Publishing %s...\n' "$package_spec"
+
+  if (cd "$package_dir" && npm publish --access public); then
+    published+=("$package_path — $package_spec")
+  else
+    failures+=("$package_path — $package_spec")
+  fi
+  printf '\n'
+done
+
+printf 'Published packages:\n'
+if (( ${#published[@]} == 0 )); then
+  printf ' (none)\n'
+else
+  for item in "${published[@]}"; do
+    printf ' ✓ %s\n' "$item"
+  done
+fi
+
+if (( ${#skipped[@]} > 0 )); then
+  printf '\nSkipped packages:\n'
+  for item in "${skipped[@]}"; do
+    printf ' - %s\n' "$item"
+  done
+fi
+
+if (( ${#failures[@]} > 0 )); then
+  printf '\nPackages that failed to publish:\n'
+  for item in "${failures[@]}"; do
+    printf ' ✗ %s\n' "$item"
+  done
+  exit 1
+fi
+
+printf '\nPublished %d packages successfully.\n' "${#published[@]}"
