@@ -7,7 +7,7 @@ published=()
 skipped=()
 failures=()
 
-printf 'Publishing all npm packages...\n\n'
+printf 'Publishing unpublished npm package versions...\n\n'
 
 shopt -s nullglob
 for package_dir in "$repo_root"/packages/*; do
@@ -49,6 +49,18 @@ NODE
 
   IFS=$'\t' read -r package_name package_version <<< "$metadata"
   package_spec="${package_name}@${package_version}"
+  npm_output=""
+
+  if npm_output="$(npm view "$package_spec" version 2>&1)"; then
+    skipped+=("$package_path — $package_spec (already published)")
+    continue
+  elif [[ "$npm_output" != *E404* && "$npm_output" != *404* ]]; then
+    error_summary="${npm_output//$'\n'/ }"
+    error_summary="${error_summary//$'\r'/ }"
+    failures+=("$package_path — $package_spec (unable to check npm: ${error_summary:0:200})")
+    continue
+  fi
+
   printf 'Publishing %s...\n' "$package_spec"
 
   if (cd "$package_dir" && npm publish --access public); then
@@ -83,4 +95,4 @@ if (( ${#failures[@]} > 0 )); then
   exit 1
 fi
 
-printf '\nPublished %d packages successfully.\n' "${#published[@]}"
+printf '\nPublished %d packages successfully; skipped %d already-published packages.\n' "${#published[@]}" "${#skipped[@]}"
