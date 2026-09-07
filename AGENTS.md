@@ -51,16 +51,17 @@ When creating or materially updating an extension package:
 - Read `/workspace/projects/pi/_git/pi-package-template/AGENTS.md` and its `package.json` before creating a package. Treat that template as the authoritative Pi resource-manifest and npm-metadata baseline, adapting its resource directories to the package's actual contents without adding unused resource types.
 - Before finalizing a new package, assign a focused documentation survey: have a sub-agent inspect several recently maintained sibling extensions and recent documentation edits, report concrete README/AGENTS/changelog/metadata and workflow conventions, then independently verify the findings. Make the new package documentation match the verified current style rather than copying an arbitrary older package.
 - Check the package metadata for the scoped package name, `pi-package` keyword, `pi.extensions`, `files`, repository, homepage, bugs, Node engine, `publishConfig.access`, and optional peer dependencies. Add only dependencies the implementation actually imports.
-- Put extension settings in Pi's main `settings.json` under an exact top-level namespace matching the extension name unless a package-owned config file is explicitly approved. Do not invent a second configuration file by default.
+- Put extension settings in Pi's main `settings.json` under an exact top-level namespace matching the extension name unless a package-owned config file is explicitly approved. Do not invent a second configuration file by default. A package-owned file needs an intentional source, precedence, and ambiguity contract.
+- Keep agent-facing tool schemas flat and put orchestration in validated configuration when that is sufficient; do not infer executable nested-tool access from `getAllTools()` metadata.
 - Verify package-local `format:check`, `typecheck`, `test`, `build`, and `npm pack --dry-run`, then run the applicable root `pnpm` validation and an isolated live TUI check for user-facing behavior. Do not run the destructive root formatter for focused package work.
-- Verify that a new package's remote repository has a reachable commit before using it as a submodule. If the remote is empty and pushing is not authorized, initialize the child locally, record the intended remote URL, and call out the required follow-up rather than pretending the remote is cloneable.
+- For a new package whose GitHub repository will be created and pushed by the user, initialize the child locally on `main`, configure the intended standard origin, and do not require remote reachability or push. If a user explicitly requires an existing remote before integration, verify that remote instead; never pretend an unverified remote is cloneable.
 
 ## Logos and gallery assets
 
 - When an extension has a gallery logo, the asset must be named `logo.jpg`, be exactly 500×500 pixels, and be encoded as JPEG.
 - Add the standard centered 250-pixel logo image with descriptive alt text to the package README.
 - Reference the raw GitHub asset in `package.json` → `pi.image` and include `logo.jpg` in the published `files` list.
-- Ask at closeout whether the package should receive a logo/gallery image and whether it should be released to npm. Under the project convention, an npm release requires a logo. The user owns npm publication; agents must not publish packages or push Git changes without explicit authorization.
+- Offer logo/gallery artwork and npm release preparation as standard closeout items for new public packages. Under the project convention, an npm release requires an accepted logo. The user owns GitHub repository creation, pushes, and npm publication; agents may perform local commits, tags, packing, and release preparation but must not push or publish without explicit authorization.
 
 ## Release and commit order (critical)
 
@@ -77,7 +78,7 @@ For a new package that cannot yet be released, commit the child repository befor
 
 When adding a new extension package:
 
-1. Verify the intended remote repository is reachable and has a commit. Create/clone it as a Git submodule at `packages/<name>` on the child repository's `main` branch; if the remote is empty or unreachable and pushing is not authorized, initialize the child locally on `main`, set the intended remote URL, and record the follow-up needed before external cloning works.
+1. For the standard user-owned GitHub flow, initialize the child locally on `main`, configure its intended origin, and do not probe remote reachability or push. If an existing remote is explicitly required, verify it before using it as a submodule; otherwise record any follow-up needed before external cloning works.
 2. Read and follow `/workspace/projects/pi/_git/pi-package-template/AGENTS.md` and `package.json`, then ensure child package basics are complete (`package.json`, `pi` manifest, entrypoint, deps) and match the current package metadata checklist and logo rules when applicable.
 3. Run the focused documentation survey described above, independently verify its findings, and bring the package README, AGENTS, changelog, and metadata into the verified current house style.
 4. Add the package extension path to root `package.json` → `pi.extensions` for single-install workflow.
