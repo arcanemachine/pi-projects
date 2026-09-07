@@ -2,7 +2,7 @@
 
 ## Status and purpose
 
-This is the canonical plan for a Pi extension package named `pi-consult`. The initial implementation is present in the child package; the user-driven command-only revision is being prepared as local `0.2.0` release work. The next owner must preserve the decisions and stop when a required gate is not satisfied. The accepted logo and local `v0.1.0` tag remain unchanged; GitHub push and npm publication remain user-owned.
+This is the canonical plan for a Pi extension package named `pi-consult`. The initial implementation is present in the child package; the user-driven command-only revision is present as local `0.2.0` release work. The next owner must preserve the decisions and stop when a required gate is not satisfied. The accepted logo and local `v0.1.0` tag remain unchanged; GitHub push and npm publication remain user-owned.
 
 The package makes isolated, configurable consultation workflows available through an explicit user command. A workflow can ask one or more configured model aliases for independent text responses, then pass those responses through later sequential stages. After a successful `/consult`, the visible result resumes the active Pi turn. The active Pi model, thinking state, and active tools must not be changed by a consultation.
 
@@ -164,7 +164,7 @@ The initial engine should favor deterministic, simple behavior over autonomous r
 - preserve concise successful/failed per-consultant diagnostics in the result details;
 - abort all in-flight requests when the parent command signal is aborted and do not start another stage;
 - do not silently synthesize partial perspectives as if the stage had succeeded;
-- expected operational failures should produce a concise stable consultation result/diagnostic suitable for the caller and UI. Unexpected programming errors may still be thrown so Pi reports a tool execution error;
+- expected operational failures should produce a concise stable consultation result/diagnostic suitable for the command and UI. Unexpected programming errors may still be thrown so Pi reports an extension execution error;
 - bound serialized parent context, each consultant response, intermediate stage payloads, and the final returned text. Use explicit constants and report when a bound was applied;
 - before each completion, check that the assembled request plus a reasonable output reserve fits the selected model's context window. Fail that consultant clearly instead of sending an oversized request;
 - aggregate all nested model usage into the consultation details and visible result metadata.
@@ -221,7 +221,7 @@ The loader must:
 - honor trusted-project settings only;
 - reject malformed JSON, non-object roots, unknown fields, invalid model specs, invalid stage/consultant shapes, and unknown aliases;
 - return a normalized configuration or a concise diagnostic without throwing for expected user configuration mistakes;
-- revalidate on session start/reload and at command/tool execution when the runtime needs current configuration.
+- revalidate on session start/reload and at command execution when the runtime needs current configuration.
 
 Do not use environment variables, credentials, session entries, or command arguments as configuration storage.
 
@@ -240,7 +240,7 @@ Follow the `pi-advice` leading-option parsing style and the Pi `registerCommand`
 
 ### 4. Implement the shared consultation engine
 
-Implement one engine used by both the tool and slash command. It should accept the normalized workflow name, optional prompt, context choice, context snapshot, model registry, abort signal, and result-reporting hooks as needed.
+Implement one engine invoked by the slash command. It should accept the normalized workflow name, optional prompt, context choice, context snapshot, model registry, abort signal, and result-reporting hooks as needed.
 
 For each consultant completion:
 
@@ -256,7 +256,7 @@ Use stage barriers and concurrent fan-out. Keep the engine independent of TUI re
 
 ### 5. Register the user-driven command
 
-Register `/consult` with the shared engine and command parser. Do not register an agent-callable consultation tool or expose a programmatic consultation surface. Use `ctx.hasUI` checks for notifications, keep print/RPC behavior deterministic and usable, and send the visible versioned result with `triggerTurn: true` only when the consultation succeeds.
+Register `/consult` with the shared engine and command parser. Do not register an agent-callable consultation tool. Use `ctx.hasUI` checks for notifications, keep print/RPC behavior deterministic and usable, and send the visible versioned result with `triggerTurn: true` only when the consultation succeeds.
 
 ### 6. Add package documentation and metadata
 
@@ -293,7 +293,7 @@ At closeout, update `/workspace/projects/pi/AGENTS.md` only where the durable gu
 - a new package's standard GitHub origin may be configured locally without requiring remote reachability when the user owns repository creation/push;
 - logo/gallery asset work and npm release preparation are standard closeout items to offer for new public packages;
 - the user owns GitHub pushes and npm publication; agents may perform local repository commits, tags, packing, and release preparation but must not push or publish without explicit authorization;
-- flat agent-facing tool schemas plus configuration-owned orchestration are more failure-resistant than exposing workflow internals in tool arguments;
+- explicit user-driven commands are safer than agent-callable tools when an operation must require user intent;
 - `getAllTools()` metadata is not executable tool access, so nested general Pi tools require a separate runtime architecture and must not be implied by a direct completion call.
 
 Avoid adding transient task details, agent names, commit hashes, or speculative future-work notes to guidance.
@@ -371,7 +371,7 @@ No commit may include failing checks, unrelated files, generated runtime data, o
 
 The implementation owner must stop and return to the user when:
 
-- the exact package name, public command/tool names, or standalone config path needs to change;
+- the exact package name, public command name, or standalone config path needs to change;
 - a design decision would add tools, child-agent execution, graph topology, conditional routing, retries, or another materially larger capability;
 - config source precedence or trust behavior cannot be implemented as specified;
 - the selected model API cannot safely receive the assembled bounded request;
