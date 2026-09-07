@@ -2,9 +2,9 @@
 
 ## Status and purpose
 
-This is the canonical plan for a new Pi extension package named `pi-consult`. Implementation was authorized by the user under the boundaries below and is now present in the child package. The next owner must preserve the decisions and stop when a required gate is not satisfied. The logo, running behavior, and local `v0.1.0` release tag are accepted and complete; GitHub push and npm publication remain user-owned.
+This is the canonical plan for a Pi extension package named `pi-consult`. The initial implementation is present in the child package; the user-driven command-only revision is being prepared as local `0.2.0` release work. The next owner must preserve the decisions and stop when a required gate is not satisfied. The accepted logo and local `v0.1.0` tag remain unchanged; GitHub push and npm publication remain user-owned.
 
-The package should make isolated, configurable consultation workflows available to the active Pi agent. A workflow can ask one or more configured model aliases for independent text responses, then pass those responses through later sequential stages. The active Pi model, thinking state, and active tools must not be changed by a consultation.
+The package makes isolated, configurable consultation workflows available through an explicit user command. A workflow can ask one or more configured model aliases for independent text responses, then pass those responses through later sequential stages. After a successful `/consult`, the visible result resumes the active Pi turn. The active Pi model, thinking state, and active tools must not be changed by a consultation.
 
 The extension is intentionally not a general sub-agent runtime, not a tool executor, and not a replacement for `pi-advice`.
 
@@ -16,7 +16,7 @@ The extension is intentionally not a general sub-agent runtime, not a tool execu
 - Pi extensions can resolve models with `ctx.modelRegistry.find(provider, modelId)`, verify authentication with `ctx.modelRegistry.hasConfiguredAuth(model)`, and make isolated nested requests with `ctx.modelRegistry.complete(model, context, options)`.
 - Pi exposes the active compaction-aware session context through `ctx.sessionManager.buildSessionContext()`. Pi exports `convertToLlm()` for converting Pi-specific agent messages to provider-compatible messages and `serializeConversation()` for a bounded textual representation.
 - `pi.getAllTools()` exposes tool metadata and schemas, not executable handlers. Generic nested tool use would therefore require a child Pi/RPC runtime or a separately designed private dispatcher.
-- `pi-web-search` and `pi-subagent` demonstrate a failure-resistant pattern: keep the public tool request simple, bound execution internally, and return concise structured results.
+- `pi-web-search` and `pi-subagent` demonstrate a failure-resistant pattern: keep the public request simple, bound execution internally, and return concise structured results.
 - Pi package guidance requires source-loaded TypeScript, a `pi` manifest, `pi-package` discoverability metadata, package-local checks, an npm tarball check, and a live user-facing verification pass.
 
 ## User-approved decisions
@@ -117,23 +117,13 @@ Do not add model-provider definitions, credentials, arbitrary prompt-file loadin
 
 A workflow invocation may omit its ad hoc prompt. It may also omit session context. An empty request is valid when the workflow's configured stage prompts and/or configured context provide a meaningful subject. The runtime must not reject an invocation merely because the request prompt is absent.
 
-The public tool surface is deliberately flat:
-
-```ts
-consult({
-  workflow: "lateral-review",
-  prompt?: "Pay particular attention to the storage boundary",
-  context?: true,
-})
-```
-
-The slash command surface is:
+The sole public surface is the explicitly user-driven slash command:
 
 ```text
 /consult <workflow> [--context] [prompt]
 ```
 
-`--context` is recognized only immediately after the workflow name. It enables conversation context for that invocation. A workflow's `context: true` enables it by default when the tool omits `context` or the command omits the flag. The initial command surface does not need a negative context flag; the tool's optional boolean can explicitly disable a workflow default when programmatic callers need that distinction.
+`--context` is recognized only immediately after the workflow name. It enables conversation context for that invocation. A workflow's `context: true` enables it by default when the command omits the flag. The command surface does not need a negative context flag.
 
 The remainder of the command after the recognized workflow and optional flag is opaque prompt text. Unknown leading options produce concise usage rather than becoming accidental prompt text. Parsing and autocomplete must be pure/testable helpers.
 
@@ -172,18 +162,18 @@ The initial engine should favor deterministic, simple behavior over autonomous r
 - use `Promise.allSettled` (or equivalent) so one rejected request cannot strand other stage results;
 - if a consultant cannot be resolved, lacks authentication, errors, is aborted, returns no usable text, or exceeds the bounded output/context contract, record that failure and stop before the next stage;
 - preserve concise successful/failed per-consultant diagnostics in the result details;
-- abort all in-flight requests when the parent tool signal is aborted and do not start another stage;
+- abort all in-flight requests when the parent command signal is aborted and do not start another stage;
 - do not silently synthesize partial perspectives as if the stage had succeeded;
 - expected operational failures should produce a concise stable consultation result/diagnostic suitable for the caller and UI. Unexpected programming errors may still be thrown so Pi reports a tool execution error;
 - bound serialized parent context, each consultant response, intermediate stage payloads, and the final returned text. Use explicit constants and report when a bound was applied;
 - before each completion, check that the assembled request plus a reasonable output reserve fits the selected model's context window. Fail that consultant clearly instead of sending an oversized request;
-- aggregate all nested model usage into the parent tool result's `usage` field, as supported by Pi's tool contract.
+- aggregate all nested model usage into the consultation details and visible result metadata.
 
 The implementation owner may select the exact conservative character/token constants, but must keep them centralized, test them, and document the user-visible truncation/failure behavior. Do not add automatic retries to make a model response conform.
 
 ### Output contract
 
-The tool result should be a bounded text envelope containing:
+The consultation result should be a bounded text envelope containing:
 
 - workflow name;
 - final-stage consultant outputs, each clearly labeled with stage, alias, and resolved provider/model;
@@ -191,7 +181,7 @@ The tool result should be a bounded text envelope containing:
 - enough generation metadata to explain what ran;
 - `details` containing structured stage/call metadata and the aggregated nested `usage` when available.
 
-The slash command runs the same engine and emits a visible versioned `pi-consult` custom message containing the bounded final result. It should not switch the active model or automatically trigger another parent turn. It should report configuration and operational errors with normal Pi notifications. A custom message renderer may be added only if the default rendering is insufficient; do not build a large UI for the initial package.
+The slash command runs the same engine and emits a visible versioned `pi-consult` custom message containing the bounded final result. On success it triggers the active parent turn with that visible result; on configuration or operational failure it emits the result with `triggerTurn: false` and reports the error with a normal Pi notification. It must not switch the active model, thinking level, or tools. A custom message renderer may be added only if the default rendering is insufficient; do not build a large UI for the initial package.
 
 ## Required implementation work
 
@@ -264,11 +254,9 @@ For each consultant completion:
 
 Use stage barriers and concurrent fan-out. Keep the engine independent of TUI rendering and command-specific notifications.
 
-### 5. Register the public tool and command
+### 5. Register the user-driven command
 
-Register a tool named `consult` with the flat schema above. The schema must not expose stage construction, arbitrary model selection, tool access, or internal retry controls. Its description and prompt metadata should explain that it invokes a configured text-only workflow.
-
-Register `/consult` with the same engine and command parser. Use `ctx.hasUI` checks for notifications, but keep print/RPC behavior deterministic and usable. The tool must return nested usage so Pi can account for the model calls.
+Register `/consult` with the shared engine and command parser. Do not register an agent-callable consultation tool or expose a programmatic consultation surface. Use `ctx.hasUI` checks for notifications, keep print/RPC behavior deterministic and usable, and send the visible versioned result with `triggerTurn: true` only when the consultation succeeds.
 
 ### 6. Add package documentation and metadata
 
@@ -276,7 +264,7 @@ Before finalizing documentation, perform the project-required focused documentat
 
 Create or update, in the child package only:
 
-- `README.md` documenting the distinction from `pi-advice`, configuration source precedence/conflict behavior, model aliases, workflow/stage semantics, empty consultations, context behavior, flat tool/command syntax, strict failure behavior, text-only/no-tools boundary, installation, and authentication;
+- `README.md` documenting the distinction from `pi-advice`, configuration source precedence/conflict behavior, model aliases, workflow/stage semantics, empty consultations, context behavior, command-only syntax and continuation, strict failure behavior, text-only/no-tools boundary, installation, and authentication;
 - `AGENTS.md` with child-repository commit/verification instructions and package-specific invariants, without duplicating superproject coordination details unnecessarily;
 - `CHANGELOG.md` with an initial unreleased entry;
 - `LICENSE.md` using the standard project license;
@@ -334,7 +322,7 @@ Tests should cover at minimum:
 - stage ordering, concurrent consultant fan-out, result labeling, and immediately-previous-stage handoff;
 - no implicit distiller and no tools in nested completion contexts;
 - missing model/auth, empty/error/aborted responses, strict stage failure, cancellation, context-window rejection, output bounds, and usage aggregation;
-- tool and command use of the same engine;
+- command use of the shared engine and its success-only continuation behavior;
 - model/active-tool state remains unchanged by consultation.
 
 Use fakes for model registry and completion calls. Unit tests must not require live provider calls or credentials.
