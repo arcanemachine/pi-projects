@@ -31,6 +31,9 @@
 [submodule "packages/pi-advice"]
 	path = packages/pi-advice
 	url = git@github.com:arcanemachine/pi-advice.git
+[submodule "packages/pi-consult"]
+	path = packages/pi-consult
+	url = git@github.com:arcanemachine/pi-consult.git
 [submodule "packages/pi-context-available"]
 	path = packages/pi-context-available
 	url = git@github.com:arcanemachine/pi-context-available.git
