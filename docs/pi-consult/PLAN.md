@@ -2,7 +2,7 @@
 
 ## Status and purpose
 
-This is the canonical plan for a new Pi extension package named `pi-consult`. Implementation was authorized by the user under the boundaries below and is now present in the child package. The next owner must preserve the decisions and stop when a required gate is not satisfied. Remaining gates are logo acceptance, final user-facing behavior acceptance, and local release/tag preparation; GitHub push and npm publication remain user-owned.
+This is the canonical plan for a new Pi extension package named `pi-consult`. Implementation was authorized by the user under the boundaries below and is now present in the child package. The next owner must preserve the decisions and stop when a required gate is not satisfied. The logo, running behavior, and local `v0.1.0` release tag are accepted and complete; GitHub push and npm publication remain user-owned.
 
 The package should make isolated, configurable consultation workflows available to the active Pi agent. A workflow can ask one or more configured model aliases for independent text responses, then pass those responses through later sequential stages. The active Pi model, thinking state, and active tools must not be changed by a consultation.
 
