@@ -15,7 +15,7 @@
   "pi": {
     "extensions": [
       "./packages/pi-advice/src/index.ts",
-      "./packages/pi-consult/src/index.ts",
+      "./packages/pi-bg-task/src/index.ts",
       "./packages/pi-context-available/src/index.ts",
       "./packages/pi-notify-marker/src/index.ts",
       "./packages/pi-read/src/index.ts",
